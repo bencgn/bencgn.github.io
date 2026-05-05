@@ -1,187 +1,200 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BenCGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+SC:wght@500;700&family=Spectral:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path class="logo-corner" d="M9 18V9h9M30 9h9v9M39 30v9h-9M18 39H9v-9" />
+            <path class="logo-shape" d="M19 13 34 24 19 35V13Z" />
+            <path class="logo-cut" d="M20 24 31 31" />
+          </svg>
+        </span>
+        <span>
+          <strong>BenCGN</strong>
+          <small>Studio</small>
+        </span>
+      </a>
 
-<head>
-    <meta charset="utf-8">
-    <title>Sau Ben | CGN HOME</title>
-    <link rel = "icon" href = 
-"images/logo/tittlelogo.jpg" 
-        type = "image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <button class="nav-toggle" type="button" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
-	<![endif]-->
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="active" href="#" data-i18n="nav.home">Home</a>
+        <a href="#articles" data-i18n="nav.public">Public Content</a>
+        <a href="#categories" data-i18n="nav.skill">Skill</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <div class="language-toggle" role="group" aria-label="Language">
+          <button class="active" type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="vi">VN</button>
+        </div>
+      </nav>
+    </header>
 
-    <!-- CSS Files
-    ================================================== -->
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="css/animate.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.theme.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.transitions.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-	<link rel="stylesheet" href="css/coloring.css" type="text/css">
-
-    <!-- color scheme -->
-    <link rel="stylesheet" href="css/colors/red.css" type="text/css">
-</head>
-
-<body id="homepage" class="homepage">
-
-    <div id="wrapper" class="fullwidth no-padding">
-		
-		<div id="bg-overlay"></div>
-		
-        <div id="main">
-
-            <!-- TOP BAR BEGIN -->
-            <div id="top-bar" class="transparent dark">
-
-                <div id="logo" ><a href="index.html" id="logo"><img src="images/logo/logo_.png" alt="logo" />
-                    BENCGN</a>
-                </div>
-
-                <nav>
-                    <ul id="mainmenu">
-                        <li><a href="index.html" class="active"><span>BENCGN</span>Home</a></li>
-                        <li><a href="https://github.com/bencgn/3dmax_bencgn"><span>BENCGN</span>Blog & Tool</a></li>
-                        <li><a href="https://github.com/bencgn/Unity_Tool_Bencgn"><span>BENCGN</span>Unity Script</a></li>
-                        <li><a href="404.html"><span>BENCGN</span>Product</a></li>
-                        
-                    </ul>
-                </nav>
-
-                <span id="menu-btn">
-					<span class="lt"></span>
-					<span class="lm"></span>
-					<span class="lb"></span>
-				</span>
-
-                <div id="mp-col">
-                    <a href="https://drive.google.com/file/d/14JtqatI6lzRgGSnmodeOupdyeCPLGe0g/view?usp=sharing" class="btn-download light"><span class="id-color"><i class="fa fa-file-pdf-o"></i></span>Ask to Download CV</a>
-                </div>
-
-                <div class="clearfix"></div>
-
-            </div>
-            <!-- TOP BAR CLOSE -->
-
-            <!-- CONTENT BEGIN -->
-            <div id="content">
-
-                <div>
-                    <a href="Tel: 0332983514" class="page-deco">+84 332983514</a>
-                </div>
-
-                <div class="social-icons-fixed">
-                    <div class="sc-inner">
-                        <a href="https://www.facebook.com/urinie.b"><i class="fa fa-facebook fa-lg"></i></a>
-                        <a href="https://www.linkedin.com/in/ben-sau
-                        "><i class="fa fa-linkedin fa-lg"></i></a>
-                        <a href="mailto:phankimtt@gmail.com"><i class="fa fa-envelope-o fa-lg"></i></a>
-                    </div>
-                </div>
-
-                <!-- section begin -->
-                <section id="section-home" aria-label="section" class="full-height no-top no-bottom text-light" data-bgimage="url(images/background/2.jpg)">
-					<div id="particles-js"></div>
-                    <div class="overlay-bg t50">
-                        <div class="middle">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <p class="lead"><span class="id-color">Hi, I am Dieu Sau Ben.</span></p>
-                                        <div class="spacer20"></div>
-                                        <div class="h1_big"> Opps, If you contact for work . Click mail
-                                            
-                                            
-                                        </div>
-
-                                        
-
-                                        <div class="h3_big">  For confidentiality reasons, i can not give out further details. I will answer you in the shortest time    
-                                        </div>
-
-                                        <div class="h1_big">Product or Output ? 
-                                            
-                                            <br> 
-                                            <div class="typed-strings">
-                                                <p>Web 3D Exterior/Interior</p>
-                                                <p>Modeling/Shader 3D</p>
-                                                <p>Architecture (RENDER/VIDEO)</p>
-                                                <p>Level Design (Engine Game)</p>
-                                            </div>
-                                            <div class="typed"></div>
-                                        </div>
-
-                                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- section close <a href="index_working.html" class="scroll-to">
-                        <span
-                        class="arrow bounce">
-                            <i class="arrow_down"></i>
-                        </span>
-                    </a> -->
-                    
-                </section>
-                <!-- section close -->
-
-                
-                
-
-                
-
-                
-
-                
-
-                
-
-            </div>
-            <!-- CONTENT CLOSE -->
-
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Featured Article</p>
+          <h1 data-i18n="hero.title">Designing Tranquility Inspired by Tradition</h1>
+          <p class="hero-copy" data-i18n="hero.copy">
+            Exploring the harmony of classical Chinese aesthetics and modern design.
+            A journey through timeless elements, materials, and spatial storytelling.
+          </p>
+          <a class="primary-button" href="#articles">
+            <span data-i18n="hero.cta">Read Feature</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
 
-        <div id="preloader">
-            <div class="s1">
-                <span></span>
-                <span></span>
-            </div>
+        <div class="hero-art" aria-hidden="true">
+          <img class="hero-slide active" src="assets/images/hero-landscape.svg" alt="" />
+          <img class="hero-slide" src="assets/images/hero-landscape-2.svg" alt="" />
+          <img class="hero-slide" src="assets/images/hero-landscape-3.svg" alt="" />
         </div>
+
+        <div class="slider-dots" aria-label="Featured slider">
+          <button class="active" type="button" aria-label="Slide 1" data-slide="0"></button>
+          <button type="button" aria-label="Slide 2" data-slide="1"></button>
+          <button type="button" aria-label="Slide 3" data-slide="2"></button>
+        </div>
+      </section>
+
+      <section class="featured" id="articles">
+        <div class="section-title">
+          <h2 data-i18n="public.title">Public Content</h2>
+        </div>
+
+        <div class="article-grid" data-content-grid>
+          <article class="article-card">
+            <img src="assets/images/article-interior.svg" alt="Tea table beside a warm wooden screen" />
+            <div class="article-body">
+              <p data-i18n="cards.1.label">Public Update</p>
+              <h3 data-i18n="cards.1.title">Design Notes for Open Creative Work</h3>
+              <span>May 12, 2024 · 5 min read</span>
+            </div>
+          </article>
+          <article class="article-card">
+            <img src="assets/images/article-courtyard.svg" alt="Quiet courtyard with a moon gate" />
+            <div class="article-body">
+              <p data-i18n="cards.2.label">Portfolio</p>
+              <h3 data-i18n="cards.2.title">Selected Work Shared With The Community</h3>
+              <span>Apr 28, 2024 · 6 min read</span>
+            </div>
+          </article>
+          <article class="article-card">
+            <img src="assets/images/article-ink.svg" alt="Brushes and ink stone on paper" />
+            <div class="article-body">
+              <p data-i18n="cards.3.label">Creative Process</p>
+              <h3 data-i18n="cards.3.title">Methods, Drafts, and Process References</h3>
+              <span>Apr 15, 2024 · 4 min read</span>
+            </div>
+          </article>
+          <article class="article-card">
+            <img src="assets/images/article-tea.svg" alt="Tea pot with red bamboo leaves" />
+            <div class="article-body">
+              <p data-i18n="cards.4.label">Resources</p>
+              <h3 data-i18n="cards.4.title">Public Materials Ready To Be Replaced</h3>
+              <span>Mar 30, 2024 · 4 min read</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="categories" id="categories">
+        <a href="#">
+          <img src="assets/icons/pavilion.svg" alt="" />
+          <strong data-i18n="skills.1.title">Architecture</strong>
+          <span data-i18n="skills.1.count">12 Articles</span>
+        </a>
+        <a href="#">
+          <img src="assets/icons/vase.svg" alt="" />
+          <strong data-i18n="skills.2.title">Interior Design</strong>
+          <span data-i18n="skills.2.count">18 Articles</span>
+        </a>
+        <a href="#">
+          <img src="assets/icons/brush.svg" alt="" />
+          <strong data-i18n="skills.3.title">Creative Process</strong>
+          <span data-i18n="skills.3.count">10 Articles</span>
+        </a>
+      </section>
+
+      <section class="about-band" id="about">
+        <img class="portrait" src="assets/images/studio-portrait.svg" alt="Artist working beside a window" />
+        <div>
+          <p class="mini-label" data-i18n="about.label">About The Studio</p>
+          <h2 data-i18n="about.title">Thoughtful Design. Timeless Values.</h2>
+          <p data-i18n="about.copy">
+            BenCGN is a design and writing practice exploring the intersection
+            of traditional East Asian aesthetics and contemporary life. We believe in
+            meaningful design, crafted with intention and rooted in culture.
+          </p>
+          <a class="outline-button" href="#contact"><span data-i18n="about.cta">Learn More</span> <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <div class="content-modal" data-content-modal hidden>
+      <div class="content-modal__backdrop" data-modal-close></div>
+      <article class="content-modal__panel" role="dialog" aria-modal="true" aria-labelledby="content-modal-title">
+        <button class="content-modal__close" type="button" aria-label="Close article" data-modal-close>X</button>
+        <img class="content-modal__image" src="" alt="" data-modal-image />
+        <div class="content-modal__body">
+          <p class="content-modal__category" data-modal-category></p>
+          <h2 id="content-modal-title" data-modal-title></h2>
+          <p class="content-modal__meta" data-modal-meta></p>
+          <p class="content-modal__copy" data-modal-copy></p>
+          <a class="outline-button content-modal__link" href="#" data-modal-link>
+            <span data-i18n="public.openFolder">Open Content</span>
+            <span aria-hidden="true">â†’</span>
+          </a>
+        </div>
+      </article>
     </div>
 
+    <footer class="site-footer" id="contact">
+      <div class="footer-brand">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path class="logo-corner" d="M9 18V9h9M30 9h9v9M39 30v9h-9M18 39H9v-9" />
+              <path class="logo-shape" d="M19 13 34 24 19 35V13Z" />
+              <path class="logo-cut" d="M20 24 31 31" />
+            </svg>
+          </span>
+          <span>
+            <strong>BenCGN</strong>
+            <small>Studio</small>
+          </span>
+        </a>
+        <p data-i18n="footer.rights">© 2024 BenCGN. All rights reserved.</p>
+      </div>
 
+      <div>
+        <h3 data-i18n="footer.explore">Explore</h3>
+        <a href="#articles" data-i18n="nav.public">Public Content</a>
+        <a href="#categories" data-i18n="nav.skill">Skill</a>
+      </div>
+      <div>
+        <h3>Studio</h3>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+    </footer>
 
-    
-
-    <!-- Javascript Files
-    ================================================== -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="js/easing.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <script src="js/jquery.countTo.js"></script>
-    <script src="js/validation.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/enquire.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/jquery.plugin.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/typed.js"></script>
-    <script src="js/typed-custom.js"></script>
-	<script src="js/particles.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/designesia.js"></script>
-
-</body>
-
+    <script src="js/main.js?v=publiccontent-3"></script>
+  </body>
 </html>

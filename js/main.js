@@ -1,0 +1,324 @@
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+const languageButtons = Array.from(document.querySelectorAll(".language-toggle button"));
+const contentGrid = document.querySelector("[data-content-grid]");
+const contentModal = document.querySelector("[data-content-modal]");
+const modalImage = document.querySelector("[data-modal-image]");
+const modalCategory = document.querySelector("[data-modal-category]");
+const modalTitle = document.querySelector("[data-modal-title]");
+const modalMeta = document.querySelector("[data-modal-meta]");
+const modalCopy = document.querySelector("[data-modal-copy]");
+const modalLink = document.querySelector("[data-modal-link]");
+const modalCloseButtons = Array.from(document.querySelectorAll("[data-modal-close]"));
+let currentLanguage = "en";
+let publicContentItems = [];
+
+const translations = {
+  en: {
+    "nav.home": "Home",
+    "nav.public": "Public Content",
+    "nav.skill": "Skill",
+    "nav.contact": "Contact",
+    "hero.eyebrow": "Featured Article",
+    "hero.title": "Designing Tranquility Inspired by Tradition",
+    "hero.copy": "Exploring the harmony of classical Chinese aesthetics and modern design. A journey through timeless elements, materials, and spatial storytelling.",
+    "hero.cta": "Read Feature",
+    "public.title": "Public Content",
+    "public.loading": "Loading public content...",
+    "public.error": "Unable to load public content.",
+    "cards.1.label": "Public Update",
+    "cards.1.title": "Design Notes for Open Creative Work",
+    "cards.2.label": "Portfolio",
+    "cards.2.title": "Selected Work Shared With The Community",
+    "cards.3.label": "Creative Process",
+    "cards.3.title": "Methods, Drafts, and Process References",
+    "cards.4.label": "Resources",
+    "cards.4.title": "Public Materials Ready To Be Replaced",
+    "skills.1.title": "Architecture",
+    "skills.1.count": "12 Articles",
+    "skills.2.title": "Interior Design",
+    "skills.2.count": "18 Articles",
+    "skills.3.title": "Creative Process",
+    "skills.3.count": "10 Articles",
+    "about.label": "About The Studio",
+    "about.title": "Thoughtful Design. Timeless Values.",
+    "about.copy": "BenCGN is a design and writing practice exploring the intersection of traditional East Asian aesthetics and contemporary life. We believe in meaningful design, crafted with intention and rooted in culture.",
+    "about.cta": "Learn More",
+    "footer.explore": "Explore",
+    "footer.rights": "© 2024 BenCGN. All rights reserved."
+  },
+  vi: {
+    "nav.home": "Trang chủ",
+    "nav.public": "Nội dung công khai",
+    "nav.skill": "Kỹ năng",
+    "nav.contact": "Liên hệ",
+    "hero.eyebrow": "Bài nổi bật",
+    "hero.title": "Thiết kế sự tĩnh tại từ tinh thần truyền thống",
+    "hero.copy": "Khám phá sự hài hòa giữa thẩm mỹ cổ điển và thiết kế hiện đại. Một hành trình qua chất liệu, không gian và câu chuyện thị giác.",
+    "hero.cta": "Xem bài viết",
+    "public.title": "Nội dung công khai",
+    "cards.1.label": "Cập nhật",
+    "cards.1.title": "Ghi chú thiết kế cho công việc sáng tạo mở",
+    "cards.2.label": "Hồ sơ",
+    "cards.2.title": "Các dự án chọn lọc chia sẻ cùng cộng đồng",
+    "cards.3.label": "Quy trình sáng tạo",
+    "cards.3.title": "Phương pháp, bản nháp và tư liệu tham khảo",
+    "cards.4.label": "Tài nguyên",
+    "cards.4.title": "Tài liệu công khai sẵn sàng thay thế",
+    "skills.1.title": "Kiến trúc",
+    "skills.1.count": "12 bài viết",
+    "skills.2.title": "Thiết kế nội thất",
+    "skills.2.count": "18 bài viết",
+    "skills.3.title": "Quy trình sáng tạo",
+    "skills.3.count": "10 bài viết",
+    "about.label": "Về Studio",
+    "about.title": "Thiết kế có chiều sâu. Giá trị bền lâu.",
+    "about.copy": "BenCGN là một studio thiết kế và viết nội dung, khám phá giao điểm giữa thẩm mỹ Á Đông truyền thống và đời sống đương đại. Chúng tôi tin vào thiết kế có chủ đích, giàu ý nghĩa và gắn với văn hóa.",
+    "about.cta": "Tìm hiểu thêm",
+    "footer.explore": "Khám phá",
+    "footer.rights": "© 2024 BenCGN. Đã đăng ký bản quyền."
+  }
+};
+
+navToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("nav-open");
+});
+
+function setActiveNav() {
+  const currentHash = window.location.hash || "#";
+
+  navLinks.forEach((link) => {
+    link.classList.toggle("active", link.getAttribute("href") === currentHash);
+  });
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    document.body.classList.remove("nav-open");
+  });
+});
+
+window.addEventListener("hashchange", setActiveNav);
+setActiveNav();
+
+function setLanguage(lang) {
+  const safeLang = translations[lang] ? lang : "en";
+  currentLanguage = safeLang;
+
+  document.documentElement.lang = safeLang === "vi" ? "vi" : "en";
+  localStorage.setItem("bencgn-language", safeLang);
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    const value = translations[safeLang][key];
+
+    if (value) {
+      element.textContent = value;
+    }
+  });
+
+  languageButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === safeLang);
+  });
+
+  renderPublicContent();
+}
+
+languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setLanguage(button.dataset.lang);
+  });
+});
+
+setLanguage(localStorage.getItem("bencgn-language") || "en");
+
+function formatContentDate(value) {
+  const date = new Date(`${value}T00:00:00`);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat(currentLanguage === "vi" ? "vi-VN" : "en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(date);
+}
+
+function getCategoryLabel(category) {
+  const categoryMap = {
+    "Kỹ Năng": {
+      en: "Skill",
+      vi: "Kỹ Năng"
+    },
+    "Sản Phẩm": {
+      en: "Product",
+      vi: "Sản Phẩm"
+    },
+    Tool: {
+      en: "Tool",
+      vi: "Tool"
+    },
+    "Sáng Tạo": {
+      en: "Creative",
+      vi: "Sáng Tạo"
+    }
+  };
+
+  return categoryMap[category]?.[currentLanguage] || category;
+}
+
+function escapeHtml(value) {
+  return String(value || "").replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    return entities[character];
+  });
+}
+
+function getPublicContentTitle(item) {
+  return currentLanguage === "vi" && item.titleVi ? item.titleVi : item.title;
+}
+
+function getPublicContentSummary(item) {
+  if (currentLanguage === "vi" && item.summaryVi) return item.summaryVi;
+  return item.summary || item.title;
+}
+
+function openContentModal(item) {
+  if (!contentModal) return;
+
+  const title = getPublicContentTitle(item);
+  const category = getCategoryLabel(item.category);
+  const date = formatContentDate(item.date);
+  const href = `publiccontent/${item.folder}/`;
+
+  modalImage.src = item.image || "";
+  modalCategory.textContent = category;
+  modalTitle.textContent = title;
+  modalMeta.textContent = `${date} Â· ${item.folder}`;
+  modalCopy.textContent = getPublicContentSummary(item);
+  modalLink.href = href;
+
+  contentModal.hidden = false;
+  document.body.classList.add("modal-open");
+  contentModal.querySelector(".content-modal__close")?.focus();
+}
+
+function closeContentModal() {
+  if (!contentModal) return;
+
+  contentModal.hidden = true;
+  document.body.classList.remove("modal-open");
+}
+
+function renderPublicContent() {
+  if (!contentGrid || !publicContentItems.length) return;
+
+  contentGrid.innerHTML = publicContentItems
+    .map((item, index) => {
+      const title = getPublicContentTitle(item);
+      const category = getCategoryLabel(item.category);
+      const date = formatContentDate(item.date);
+
+      return `
+        <article class="article-card">
+          <button class="article-link" type="button" data-content-index="${index}" aria-label="${escapeHtml(title)}">
+            <img src="${escapeHtml(item.image)}" alt="" />
+            <div class="article-body">
+              <p>${escapeHtml(category)}</p>
+              <h3>${escapeHtml(title)}</h3>
+              <span>${date} · ${item.folder}</span>
+            </div>
+          </button>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+contentGrid?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-content-index]");
+
+  if (!button) return;
+
+  const item = publicContentItems[Number(button.dataset.contentIndex)];
+
+  if (item) {
+    openContentModal(item);
+  }
+});
+
+modalCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeContentModal);
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && contentModal && !contentModal.hidden) {
+    closeContentModal();
+  }
+});
+
+async function loadPublicContent() {
+  if (!contentGrid) return;
+
+  try {
+    const response = await fetch("publiccontent/content.json");
+
+    if (!response.ok) {
+      throw new Error(`Public content manifest failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    publicContentItems = Array.isArray(data.items) ? data.items : [];
+    renderPublicContent();
+  } catch (error) {
+    console.error(error);
+    contentGrid.innerHTML = `<p class="content-state">${translations[currentLanguage]["public.error"] || translations.en["public.error"]}</p>`;
+  }
+}
+
+loadPublicContent();
+
+const heroSlides = Array.from(document.querySelectorAll(".hero-slide"));
+const heroDots = Array.from(document.querySelectorAll(".slider-dots button"));
+let activeSlide = 0;
+let slideTimer;
+
+function showSlide(index) {
+  if (!heroSlides.length) return;
+
+  activeSlide = (index + heroSlides.length) % heroSlides.length;
+
+  heroSlides.forEach((slide, slideIndex) => {
+    slide.classList.toggle("active", slideIndex === activeSlide);
+  });
+
+  heroDots.forEach((dot, dotIndex) => {
+    dot.classList.toggle("active", dotIndex === activeSlide);
+  });
+}
+
+function startSlideLoop() {
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => {
+    showSlide(activeSlide + 1);
+  }, 4500);
+}
+
+heroDots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    showSlide(Number(dot.dataset.slide || 0));
+    startSlideLoop();
+  });
+});
+
+showSlide(0);
+startSlideLoop();

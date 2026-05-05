@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "title": "Design Notes for Open Creative Work",
+      "titleVi": "Ghi chú thiết kế cho công việc sáng tạo mở",
+      "folder": "conten1",
+      "date": "2024-05-12",
+      "category": "Sáng Tạo",
+      "image": "assets/images/article-interior.svg"
+    },
+    {
+      "title": "Selected Product Systems Shared Publicly",
+      "titleVi": "Hệ thống sản phẩm chọn lọc chia sẻ công khai",
+      "folder": "conten11",
+      "date": "2024-04-28",
+      "category": "Sản Phẩm",
+      "image": "assets/images/article-courtyard.svg"
+    },
+    {
+      "title": "Tool References for Faster Production",
+      "titleVi": "Tư liệu công cụ giúp sản xuất nhanh hơn",
+      "folder": "conten111",
+      "date": "2024-04-15",
+      "category": "Tool",
+      "image": "assets/images/article-ink.svg"
+    },
+    {
+      "title": "Practical Skill Notes for Daily Work",
+      "titleVi": "Ghi chú kỹ năng thực tế cho công việc hằng ngày",
+      "folder": "conten1111",
+      "date": "2024-03-30",
+      "category": "Kỹ Năng",
+      "image": "assets/images/article-tea.svg"
+    }
+  ]
+}

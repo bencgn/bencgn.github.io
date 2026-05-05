@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1">
+      <stop offset="0" stop-color="#521008"/>
+      <stop offset="1" stop-color="#250503"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".72" cy=".22" r=".16">
+      <stop offset="0" stop-color="#b53224"/>
+      <stop offset="1" stop-color="#6d160d" stop-opacity=".1"/>
+    </radialGradient>
+  </defs>
+  <rect width="980" height="560" fill="url(#sky)"/>
+  <rect width="980" height="560" fill="url(#sun)"/>
+  <path d="M72 370c116-82 155-142 252-96 86 41 130-82 217-90 96-9 141 104 238 42 66-42 122 6 166 60v274H72z" fill="#55130d" opacity=".58"/>
+  <path d="M410 354 517 118l88 236zM520 362 646 170l125 192zM642 375 782 155l150 220z" fill="#30110c"/>
+  <path d="M429 335 516 142l42 193zM543 337l101-144 70 144zM693 350l90-160 99 160z" fill="#7c4631" opacity=".55"/>
+  <path d="M135 445c100-71 150-102 211-75 90 40 135-46 218-24 98 27 148 86 301-4 42-25 78-21 113-4v222H135z" fill="#1e0906"/>
+  <path d="M620 380c53-50 108-65 158-54 45 10 70 44 110 32 23-7 49-30 76-66" fill="none" stroke="#130705" stroke-width="18" stroke-linecap="round"/>
+  <path d="M660 336c35 3 56 14 72 36M706 303c20 1 33 10 43 26M799 314c26 0 43 12 58 33" fill="none" stroke="#0d0604" stroke-width="8" stroke-linecap="round"/>
+  <path d="M720 194h106l-53-55z" fill="#120605"/>
+  <path d="M742 194v86h62v-86" fill="#160705"/>
+  <path d="M735 213h76M745 236h58M756 194v83M790 194v83" stroke="#9e6b49" stroke-width="4" opacity=".7"/>
+  <circle cx="773" cy="154" r="47" fill="#9f2318" opacity=".75"/>
+  <path d="M759 146c21-11 42-3 52 16M732 185c30-8 72-6 104 9" stroke="#090403" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M244 104c270-210 414-24 590-126" fill="none" stroke="#d49d52" stroke-width="2" opacity=".85"/>
+  <g fill="none" stroke="#c17b39" stroke-width="3" opacity=".7">
+    <path d="M533 118c9-8 19-8 29 0"/>
+    <path d="M600 104c9-8 19-8 29 0"/>
+    <path d="M659 128c9-8 19-8 29 0"/>
+    <path d="M711 105c11-9 24-9 36 0"/>
+  </g>
+</svg>
