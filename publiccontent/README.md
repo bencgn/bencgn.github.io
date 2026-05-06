@@ -27,3 +27,37 @@ Moi item gom cac truong:
 - `image`: duong dan anh dai dien.
 
 Khi them bai moi, tao them thu muc trong `publiccontent/`, sau do them item vao `content.json`.
+
+## Tao bai bang Python tool
+
+Chay tu thu muc goc project:
+
+```powershell
+python publiccontent/create_article.py
+```
+
+Tool se hoi lan luot tieu de, ngay, the loai va anh dai dien. Neu muon tao nhanh bang mot lenh:
+
+```powershell
+python publiccontent/create_article.py `
+  --title "New Tool Note" `
+  --title-vi "Ghi chu tool moi" `
+  --category Tool `
+  --date 2026-05-06 `
+  --image assets/images/article-ink.svg
+```
+
+Neu khong truyen `--folder`, tool tu tao ma tiep theo dang `conten11111`. Tool se tao:
+
+```text
+publiccontent/conten11111/index.html
+publiccontent/conten11111/content.md
+```
+
+va tu cap nhat `publiccontent/content.json`.
+
+Dung `--dry-run` de xem truoc ma khong ghi file:
+
+```powershell
+python publiccontent/create_article.py --title "Test" --title-vi "Test" --category Tool --dry-run
+```
