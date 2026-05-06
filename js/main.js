@@ -41,12 +41,12 @@ const translations = {
     "skills.2.count": "18 Articles",
     "skills.3.title": "Creative Process",
     "skills.3.count": "10 Articles",
-    "about.label": "About The Studio",
-    "about.title": "Thoughtful Design. Timeless Values.",
-    "about.copy": "BenCGN is a design and writing practice exploring the intersection of traditional East Asian aesthetics and contemporary life. We believe in meaningful design, crafted with intention and rooted in culture.",
+    "about.label": "About BenCGN",
+    "about.title": "3D Artist. Technical Art.",
+    "about.copy": "BenCGN builds stylized 3D visuals, interactive assets, and technical art systems for clear, polished digital experiences.",
     "about.cta": "Learn More",
     "footer.explore": "Explore",
-    "footer.rights": "© 2024 BenCGN. All rights reserved."
+    "footer.rights": "© 2026 BenCGN. All rights reserved."
   },
   vi: {
     "nav.home": "Trang chủ",
@@ -72,12 +72,12 @@ const translations = {
     "skills.2.count": "18 bài viết",
     "skills.3.title": "Quy trình sáng tạo",
     "skills.3.count": "10 bài viết",
-    "about.label": "Về Studio",
-    "about.title": "Thiết kế có chiều sâu. Giá trị bền lâu.",
-    "about.copy": "BenCGN là một studio thiết kế và viết nội dung, khám phá giao điểm giữa thẩm mỹ Á Đông truyền thống và đời sống đương đại. Chúng tôi tin vào thiết kế có chủ đích, giàu ý nghĩa và gắn với văn hóa.",
+    "about.label": "Về BenCGN",
+    "about.title": "3D Artist. Technical Art.",
+    "about.copy": "BenCGN tạo hình ảnh 3D, asset tương tác và hệ thống technical art gọn, rõ, dùng tốt cho sản phẩm số.",
     "about.cta": "Tìm hiểu thêm",
     "footer.explore": "Khám phá",
-    "footer.rights": "© 2024 BenCGN. Đã đăng ký bản quyền."
+    "footer.rights": "© 2026 BenCGN. Đã đăng ký bản quyền."
   }
 };
 
@@ -312,6 +312,9 @@ function renderPublicContent() {
       const title = getPublicContentTitle(item);
       const category = getCategoryLabel(item.category);
       const date = formatContentDate(item.date);
+      const linkBadge = isLinkContent(item)
+        ? `<a class="article-open" href="${escapeHtml(item.linkUrl || "#")}" data-direct-link>OPEN CONTENT</a>`
+        : "";
 
       return `
         <article class="article-card">
@@ -323,6 +326,7 @@ function renderPublicContent() {
               <span>${escapeHtml(date)}</span>
             </div>
           </button>
+          ${linkBadge}
         </article>
       `;
     })
@@ -330,6 +334,8 @@ function renderPublicContent() {
 }
 
 contentGrid?.addEventListener("click", (event) => {
+  if (event.target.closest("[data-direct-link]")) return;
+
   const button = event.target.closest("[data-content-index]");
 
   if (!button) return;
@@ -395,7 +401,7 @@ function startSlideLoop() {
   clearInterval(slideTimer);
   slideTimer = setInterval(() => {
     showSlide(activeSlide + 1);
-  }, 4500);
+  }, 2000);
 }
 
 heroDots.forEach((dot) => {

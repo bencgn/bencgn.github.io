@@ -156,7 +156,7 @@ input {
   display: grid;
   grid-template-columns: 7.5rem minmax(18rem, 31rem) 1fr;
   align-items: center;
-  min-height: 36rem;
+  min-height: 24rem;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background:
@@ -189,7 +189,7 @@ input {
   position: relative;
   z-index: 3;
   grid-column: 2;
-  padding: 5rem 0;
+  padding: 3rem 0;
   max-width: 31rem;
 }
 
@@ -218,7 +218,7 @@ input {
   margin: 0;
   color: var(--gold-soft);
   font-family: "Spectral", Georgia, serif;
-  font-size: clamp(2.9rem, 4.5vw, 4.35rem);
+  font-size: clamp(2.35rem, 3.8vw, 3.45rem);
   font-weight: 500;
   line-height: 1.05;
 }
@@ -227,14 +227,14 @@ input {
   display: block;
   width: 4.2rem;
   height: 3px;
-  margin: 1.15rem 0 1.25rem;
+  margin: 0.9rem 0 1rem;
   background: var(--red-bright);
   content: "";
 }
 
 .hero-copy {
   max-width: 30rem;
-  margin: 0 0 1.8rem;
+  margin: 0 0 1.35rem;
   color: var(--cream);
   font-size: 1.1rem;
   line-height: 1.55;
@@ -311,13 +311,13 @@ input {
 }
 
 .featured {
-  padding: 2.6rem 9.5vw 1rem;
+  padding: 1.8rem 9.5vw 0.7rem;
 }
 
 .section-title {
   display: grid;
   place-items: center;
-  margin-bottom: 1.7rem;
+  margin-bottom: 1.25rem;
   text-align: center;
 }
 
@@ -342,20 +342,26 @@ input {
 .article-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: 1.05rem;
 }
 
 .article-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(231, 191, 118, 0.28);
-  border-radius: 0.25rem;
-  background: rgba(52, 8, 5, 0.78);
-  box-shadow: 0 1.4rem 2.5rem rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 231, 181, 0.42);
+  border-radius: 0.65rem;
+  background:
+    linear-gradient(135deg, rgba(255, 245, 222, 0.94), rgba(246, 211, 153, 0.82)),
+    radial-gradient(circle at 22% 15%, rgba(255, 255, 255, 0.72), transparent 42%);
+  box-shadow: 0 1rem 2.1rem rgba(0, 0, 0, 0.22);
 }
 
 .article-link {
-  display: block;
-  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   width: 100%;
   padding: 0;
   border: 0;
@@ -375,10 +381,17 @@ input {
   width: 100%;
   aspect-ratio: 1.65;
   object-fit: cover;
+  border-radius: 0.58rem 0.58rem 0 0;
 }
 
 .article-body {
-  padding: 1.1rem 1rem 1.15rem;
+  flex: 1;
+  padding: 0.95rem 1rem 1rem;
+  background: linear-gradient(180deg, rgba(58, 9, 4, 0.95), rgba(82, 12, 6, 0.92));
+}
+
+.article-card:has(.article-open) .article-body {
+  padding-bottom: 4rem;
 }
 
 .article-body p {
@@ -387,7 +400,7 @@ input {
 }
 
 .article-body h3 {
-  min-height: 3.9rem;
+  min-height: 3.35rem;
   margin: 0;
   color: var(--cream);
   font-size: 1.25rem;
@@ -405,10 +418,43 @@ input {
 }
 
 .article-body span,
+.article-open,
 .about-band p,
 .site-footer p,
 .site-footer a {
   color: var(--muted);
+}
+
+.article-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  min-height: 2.15rem;
+  padding: 0 0.95rem;
+  border: 1px solid rgba(246, 223, 185, 0.58);
+  border-radius: 999px;
+  color: #fff3d0;
+  background: linear-gradient(180deg, rgba(224, 75, 47, 0.98), rgba(138, 25, 13, 0.98));
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.24);
+  font-family: "Cinzel", serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+
+.article-open:hover,
+.article-open:focus-visible {
+  color: #fff8df;
+  border-color: var(--gold-soft);
+  box-shadow:
+    0 0 0 1px rgba(241, 214, 157, 0.36),
+    0 0.95rem 1.8rem rgba(0, 0, 0, 0.3),
+    0 0 1.2rem rgba(231, 191, 118, 0.35);
 }
 
 .content-state {
@@ -667,42 +713,40 @@ body.modal-open {
 .site-footer {
   display: grid;
   grid-template-columns: minmax(13rem, 1.5fr) repeat(2, minmax(7rem, 0.75fr));
-  gap: clamp(1.2rem, 4vw, 4rem);
-  padding: 1.35rem 9.5vw 1.5rem;
+  gap: clamp(0.75rem, 3vw, 2.5rem);
+  padding: 0.72rem 9.5vw 0.82rem;
   background: #300703;
 }
 
 .site-footer h3 {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.35rem;
   color: var(--gold-soft);
   font-family: "Cinzel", serif;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .site-footer a {
   display: block;
-  margin-bottom: 0.22rem;
-  font-size: 0.9rem;
+  margin-bottom: 0.1rem;
+  font-size: 0.78rem;
 }
 
 .site-footer p {
-  margin: 0.65rem 0 0;
-  font-size: 0.76rem;
+  margin: 0.2rem 0 0;
+  font-size: 0.7rem;
 }
 
 .site-footer .brand-logo {
-  height: 2.45rem;
-  max-width: 12rem;
+  height: 1.85rem;
+  max-width: 9.2rem;
 }
 
 .site-footer .brand {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  padding: 0.28rem 0.45rem;
+  border-radius: 0.45rem;
+  box-shadow: 0 0.55rem 1.25rem rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 1100px) {
