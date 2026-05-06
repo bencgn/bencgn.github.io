@@ -566,9 +566,97 @@ body.modal-open {
   line-height: 1.58;
 }
 
+.content-modal__article {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.6rem;
+  color: var(--cream);
+  line-height: 1.58;
+}
+
+.content-modal__article h3,
+.content-modal__article h4 {
+  margin: 0.65rem 0 0;
+  color: var(--gold-soft);
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+.content-modal__article h3 {
+  font-size: 1.35rem;
+}
+
+.content-modal__article h4 {
+  font-size: 1.05rem;
+}
+
+.content-modal__article p {
+  margin: 0;
+}
+
+.content-modal__article strong {
+  color: var(--gold-soft);
+  font-weight: 700;
+}
+
+.content-modal__article em {
+  color: var(--muted);
+}
+
+.content-modal__article img {
+  display: block;
+  width: 100%;
+  max-height: 15rem;
+  object-fit: cover;
+  border: 1px solid rgba(231, 191, 118, 0.24);
+  border-radius: 0.3rem;
+}
+
+.content-modal__article a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.content-modal__bullet::before {
+  color: var(--red-bright);
+  content: "- ";
+}
+
+.content-modal__loading {
+  color: var(--muted);
+}
+
 .content-modal__link {
-  min-width: 11rem;
+  min-width: 15rem;
+  min-height: 3.45rem;
   justify-content: center;
+  margin-bottom: 1.75rem;
+  border-color: rgba(246, 223, 185, 0.7);
+  color: #fff3d0;
+  background:
+    linear-gradient(180deg, rgba(224, 75, 47, 0.98), rgba(138, 25, 13, 0.98)),
+    var(--red);
+  box-shadow:
+    0 0 0 1px rgba(231, 191, 118, 0.22),
+    0 0.9rem 2rem rgba(0, 0, 0, 0.32),
+    0 0 1.45rem rgba(216, 71, 46, 0.34);
+  transform: translateZ(0);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.content-modal__link[hidden] {
+  display: none;
+}
+
+.content-modal__link:hover,
+.content-modal__link:focus-visible {
+  border-color: var(--gold-soft);
+  box-shadow:
+    0 0 0 1px rgba(241, 214, 157, 0.42),
+    0 1.15rem 2.4rem rgba(0, 0, 0, 0.4),
+    0 0 2.15rem rgba(231, 191, 118, 0.42);
+  transform: translateY(-1px);
 }
 
 .about-band {

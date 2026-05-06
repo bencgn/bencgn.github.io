@@ -8,6 +8,7 @@ const modalCategory = document.querySelector("[data-modal-category]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalMeta = document.querySelector("[data-modal-meta]");
 const modalCopy = document.querySelector("[data-modal-copy]");
+const modalArticle = document.querySelector("[data-modal-article]");
 const modalLink = document.querySelector("[data-modal-link]");
 const modalCloseButtons = Array.from(document.querySelectorAll("[data-modal-close]"));
 let currentLanguage = "en";
@@ -192,13 +193,95 @@ function getPublicContentSummary(item) {
   return item.summary || item.title;
 }
 
-function openContentModal(item) {
+function isLinkContent(item) {
+  return item.contentType === "link";
+}
+
+function inlineMarkdown(value) {
+  return escapeHtml(value)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+}
+
+function markdownToHtml(markdown) {
+  const blocks = [];
+  const lines = String(markdown || "").split(/\r?\n/);
+  let paragraph = [];
+
+  function flushParagraph() {
+    if (!paragraph.length) return;
+    blocks.push(`<p>${inlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  }
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      return;
+    }
+
+    if (trimmed.startsWith("### ")) {
+      flushParagraph();
+      blocks.push(`<h4>${inlineMarkdown(trimmed.slice(4))}</h4>`);
+      return;
+    }
+
+    if (trimmed.startsWith("## ")) {
+      flushParagraph();
+      blocks.push(`<h3>${inlineMarkdown(trimmed.slice(3))}</h3>`);
+      return;
+    }
+
+    if (trimmed.startsWith("# ")) {
+      flushParagraph();
+      blocks.push(`<h3>${inlineMarkdown(trimmed.slice(2))}</h3>`);
+      return;
+    }
+
+    if (trimmed.startsWith("- ")) {
+      flushParagraph();
+      blocks.push(`<p class="content-modal__bullet">${inlineMarkdown(trimmed.slice(2))}</p>`);
+      return;
+    }
+
+    paragraph.push(trimmed);
+  });
+
+  flushParagraph();
+  return blocks.join("");
+}
+
+async function loadArticleBody(item) {
+  if (!modalArticle) return;
+
+  modalArticle.innerHTML = `<p class="content-modal__loading">${currentLanguage === "vi" ? "Đang tải nội dung..." : "Loading content..."}</p>`;
+
+  try {
+    const response = await fetch(`publiccontent/${item.folder}/content.md`);
+
+    if (!response.ok) {
+      throw new Error(`Content failed: ${response.status}`);
+    }
+
+    const markdown = await response.text();
+    modalArticle.innerHTML = markdownToHtml(markdown);
+  } catch (error) {
+    console.error(error);
+    modalArticle.innerHTML = `<p class="content-modal__loading">${currentLanguage === "vi" ? "Chưa có nội dung bài viết." : "No article content yet."}</p>`;
+  }
+}
+
+async function openContentModal(item) {
   if (!contentModal) return;
 
   const title = getPublicContentTitle(item);
   const category = getCategoryLabel(item.category);
   const date = formatContentDate(item.date);
-  const href = `publiccontent/${item.folder}/`;
+  const href = item.linkUrl || `publiccontent/${item.folder}/`;
 
   modalImage.src = item.image || "";
   modalCategory.textContent = category;
@@ -206,6 +289,8 @@ function openContentModal(item) {
   modalMeta.textContent = date;
   modalCopy.textContent = getPublicContentSummary(item);
   modalLink.href = href;
+  modalLink.hidden = !isLinkContent(item) || !item.linkUrl;
+  loadArticleBody(item);
 
   contentModal.hidden = false;
   document.body.classList.add("modal-open");
