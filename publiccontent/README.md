@@ -36,7 +36,21 @@ Chay tu thu muc goc project:
 python publiccontent/create_article.py
 ```
 
-Tool se hoi lan luot tieu de, ngay, the loai va anh dai dien. Neu muon tao nhanh bang mot lenh:
+Lenh tren se mo GUI app de tao bai moi. Ban nhap title, date, category, image roi bam `Create Article`.
+
+Tren Windows co the double-click:
+
+```text
+publiccontent/open_article_gui.bat
+```
+
+Neu muon mo GUI ro rang bang tham so:
+
+```powershell
+python publiccontent/create_article.py --gui
+```
+
+Neu muon tao nhanh bang mot lenh CLI:
 
 ```powershell
 python publiccontent/create_article.py `
