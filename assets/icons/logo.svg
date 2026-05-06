@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 796 262" role="img" aria-labelledby="title desc">
-  <title id="title">BenCGN Studio</title>
-  <desc id="desc">BenCGN Studio wordmark with geometric play mark.</desc>
+  <title id="title">BenCGN</title>
+  <desc id="desc">BenCGN wordmark with geometric play mark.</desc>
   <defs>
     <linearGradient id="wine" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#8f0705"/>
@@ -33,6 +33,5 @@
 
   <g fill="url(#wine)" filter="url(#softGrain)">
     <text x="248" y="148" font-family="Georgia, 'Times New Roman', serif" font-size="88" letter-spacing="22">BENCGN</text>
-    <text x="252" y="216" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="32">STUDIO</text>
   </g>
 </svg>
