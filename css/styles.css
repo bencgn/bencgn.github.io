@@ -51,7 +51,7 @@ input {
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 1.6rem;
-  min-height: 4.2rem;
+  min-height: 4.65rem;
   padding: 0 9.5vw;
   border-bottom: 1px solid var(--line);
   background: rgba(45, 7, 3, 0.86);
@@ -61,54 +61,23 @@ input {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid rgba(255, 231, 181, 0.42);
+  border-radius: 0.6rem;
+  background:
+    linear-gradient(135deg, rgba(255, 245, 222, 0.94), rgba(246, 211, 153, 0.82)),
+    radial-gradient(circle at 22% 15%, rgba(255, 255, 255, 0.72), transparent 42%);
+  box-shadow:
+    0 0.85rem 1.9rem rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
 
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 2.05rem;
-  height: 2.05rem;
-  border: 0;
-  color: var(--red-bright);
-  line-height: 1;
-}
-
-.brand-mark svg {
+.brand-logo {
   display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.logo-corner,
-.logo-cut {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 3.2;
-}
-
-.logo-shape {
-  fill: currentColor;
-}
-
-.brand strong {
-  display: block;
-  color: var(--cream);
-  font-family: "Cinzel", serif;
-  font-size: 0.92rem;
-  letter-spacing: 0.16em;
-}
-
-.brand small {
-  display: block;
-  margin-top: 0.12rem;
-  color: var(--gold-soft);
-  font-family: "Cinzel", serif;
-  font-size: 0.56rem;
-  font-weight: 700;
-  letter-spacing: 0.32em;
+  width: auto;
+  height: clamp(2.85rem, 4.8vw, 3.45rem);
+  max-width: min(15.75rem, 36vw);
+  object-fit: contain;
 }
 
 .site-nav {
@@ -723,21 +692,17 @@ body.modal-open {
   font-size: 0.76rem;
 }
 
+.site-footer .brand-logo {
+  height: 2.45rem;
+  max-width: 12rem;
+}
+
 .site-footer .brand {
-  gap: 0.65rem;
-}
-
-.site-footer .brand-mark {
-  width: 1.85rem;
-  height: 1.85rem;
-}
-
-.site-footer .brand strong {
-  font-size: 0.86rem;
-}
-
-.site-footer .brand small {
-  font-size: 0.52rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 @media (max-width: 1100px) {
@@ -868,8 +833,14 @@ body.modal-open {
 }
 
 @media (max-width: 560px) {
-  .brand small {
-    letter-spacing: 0.18em;
+  .brand-logo {
+    height: 2.35rem;
+    max-width: 9.6rem;
+  }
+
+  .brand {
+    padding: 0.34rem 0.52rem;
+    border-radius: 0.5rem;
   }
 
   .article-grid {

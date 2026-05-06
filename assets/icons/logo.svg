@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 796 262" role="img" aria-labelledby="title desc">
+  <title id="title">BenCGN Studio</title>
+  <desc id="desc">BenCGN Studio wordmark with geometric play mark.</desc>
+  <defs>
+    <linearGradient id="wine" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8f0705"/>
+      <stop offset="0.46" stop-color="#540000"/>
+      <stop offset="1" stop-color="#9e100b"/>
+    </linearGradient>
+    <filter id="softGrain" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence baseFrequency="0.9" numOctaves="2" seed="8" type="fractalNoise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA slope="0.1" type="linear"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="url(#wine)" stroke-linecap="round" stroke-width="10">
+    <path d="M45 41H111"/>
+    <path d="M126 41H179Q191 41 191 53V119"/>
+    <path d="M191 143V209Q191 221 179 221H126"/>
+    <path d="M111 221H45Q33 221 33 209V143"/>
+    <path d="M33 119V53Q33 41 45 41"/>
+  </g>
+
+  <g fill="url(#wine)" filter="url(#softGrain)">
+    <path d="M86 64 154 110 86 153Z"/>
+    <path d="M86 118 154 164 86 207Z"/>
+  </g>
+  <path d="M87 118 151 163" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="4"/>
+
+  <g fill="url(#wine)" filter="url(#softGrain)">
+    <text x="248" y="148" font-family="Georgia, 'Times New Roman', serif" font-size="88" letter-spacing="22">BENCGN</text>
+    <text x="252" y="216" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="32">STUDIO</text>
+  </g>
+</svg>
