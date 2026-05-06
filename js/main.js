@@ -203,7 +203,7 @@ function openContentModal(item) {
   modalImage.src = item.image || "";
   modalCategory.textContent = category;
   modalTitle.textContent = title;
-  modalMeta.textContent = `${date} Â· ${item.folder}`;
+  modalMeta.textContent = date;
   modalCopy.textContent = getPublicContentSummary(item);
   modalLink.href = href;
 
@@ -235,7 +235,7 @@ function renderPublicContent() {
             <div class="article-body">
               <p>${escapeHtml(category)}</p>
               <h3>${escapeHtml(title)}</h3>
-              <span>${date} · ${item.folder}</span>
+              <span>${escapeHtml(date)}</span>
             </div>
           </button>
         </article>
