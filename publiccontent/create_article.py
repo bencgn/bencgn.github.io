@@ -46,6 +46,7 @@ class ArticleInput:
     content_type: str = "article"
     link_url: str = ""
     body: str = ""
+    body_en: str = ""
     force: bool = False
 
 
@@ -156,12 +157,37 @@ Viết nội dung bài ở đây.
 """
 
 
-def article_markdown(title: str, title_vi: str, category: str, folder: str, article_date: str, body: str = "") -> str:
-    return body.strip() + "\n" if body.strip() else default_article_body(title, title_vi, category, folder, article_date)
+def default_article_body_en(title: str, title_vi: str, category: str, folder: str, article_date: str) -> str:
+    return f"""# {title}
+
+- Title VI: {title_vi or title}
+- Folder: {folder}
+- Date: {article_date}
+- Category: {category}
+
+Write the English article content here.
+"""
 
 
-def read_article_body(folder: str) -> str:
-    path = ROOT / folder / "content.md"
+def article_markdown(
+    title: str,
+    title_vi: str,
+    category: str,
+    folder: str,
+    article_date: str,
+    body: str = "",
+    language: str = "vi",
+) -> str:
+    if body.strip():
+        return body.strip() + "\n"
+    if language == "en":
+        return default_article_body_en(title, title_vi, category, folder, article_date)
+    return default_article_body(title, title_vi, category, folder, article_date)
+
+
+def read_article_body(folder: str, language: str = "vi") -> str:
+    filename = "content.en.md" if language == "en" else "content.md"
+    path = ROOT / folder / filename
     if not path.exists():
         return ""
     return path.read_text(encoding="utf-8")
@@ -177,6 +203,7 @@ def build_article_input(
     content_type: str = "Bài Viết",
     link_url: str = "",
     body: str = "",
+    body_en: str = "",
     force: bool = False,
 ) -> ArticleInput:
     manifest = load_manifest()
@@ -200,6 +227,7 @@ def build_article_input(
         content_type=normalize_content_type(content_type),
         link_url=link_url.strip(),
         body=body,
+        body_en=body_en,
         force=force,
     )
 
@@ -242,6 +270,19 @@ def save_article(article: ArticleInput, dry_run: bool = False) -> tuple[dict, Pa
     )
     (folder_path / "content.md").write_text(
         article_markdown(article.title, article.title_vi, article.category, article.folder, article.article_date, article.body),
+        encoding="utf-8",
+        newline="\n",
+    )
+    (folder_path / "content.en.md").write_text(
+        article_markdown(
+            article.title,
+            article.title_vi,
+            article.category,
+            article.folder,
+            article.article_date,
+            article.body_en,
+            language="en",
+        ),
         encoding="utf-8",
         newline="\n",
     )
@@ -309,8 +350,11 @@ def run_cli(args: argparse.Namespace) -> None:
 
     try:
         body = ""
+        body_en = ""
         if args.body_file:
             body = Path(args.body_file).read_text(encoding="utf-8")
+        if args.body_en_file:
+            body_en = Path(args.body_en_file).read_text(encoding="utf-8")
 
         article = build_article_input(
             title=prompt_missing("Title EN", args.title),
@@ -322,6 +366,7 @@ def run_cli(args: argparse.Namespace) -> None:
             content_type=prompt_missing("Content type", args.content_type, CONTENT_TYPES[0]),
             link_url=args.link_url or "",
             body=body,
+            body_en=body_en,
             force=args.force,
         )
         item, folder_path = save_article(article, dry_run=args.dry_run)
@@ -343,8 +388,8 @@ def run_gui() -> None:
 
     root = tk.Tk()
     root.title("BenCGN Public Content")
-    root.geometry("980x620")
-    root.minsize(860, 560)
+    root.geometry("1180x760")
+    root.minsize(980, 680)
 
     style = ttk.Style(root)
     style.theme_use("clam")
@@ -371,8 +416,8 @@ def run_gui() -> None:
 
     layout = ttk.Frame(shell)
     layout.pack(fill="both", expand=True)
-    layout.columnconfigure(0, weight=1)
-    layout.columnconfigure(1, weight=1)
+    layout.columnconfigure(0, weight=2, minsize=380)
+    layout.columnconfigure(1, weight=3, minsize=560)
     layout.rowconfigure(0, weight=1)
 
     list_panel = ttk.Frame(layout, style="Panel.TFrame", padding=14)
@@ -402,6 +447,7 @@ def run_gui() -> None:
     form_panel = ttk.Frame(layout, style="Panel.TFrame", padding=14)
     form_panel.grid(row=0, column=1, sticky="nsew")
     form_panel.columnconfigure(1, weight=1)
+    form_panel.rowconfigure(8, weight=1)
 
     title_var = tk.StringVar()
     title_vi_var = tk.StringVar()
@@ -466,10 +512,15 @@ def run_gui() -> None:
         image_var.set(DEFAULT_IMAGE)
         content_type_var.set(CONTENT_TYPES[0])
         link_url_var.set("")
-        content_text.delete("1.0", "end")
-        content_text.insert(
+        content_text_vi.delete("1.0", "end")
+        content_text_vi.insert(
             "1.0",
             "# Tiêu đề bài viết\n\nViết nội dung ở đây. Có thể dùng **chữ đậm**, *chữ nghiêng* và ảnh:\n\n![Alt text](assets/images/article-interior.svg)\n",
+        )
+        content_text_en.delete("1.0", "end")
+        content_text_en.insert(
+            "1.0",
+            "# Article title\n\nWrite the English content here. You can use **bold text**, *italic text*, and images:\n\n![Alt text](assets/images/article-interior.svg)\n",
         )
         tree.selection_remove(tree.selection())
         set_mode("create")
@@ -490,8 +541,10 @@ def run_gui() -> None:
         image_var.set(str(item.get("image", DEFAULT_IMAGE)))
         content_type_var.set(content_type_label(str(item.get("contentType", "article"))))
         link_url_var.set(str(item.get("linkUrl", "")))
-        content_text.delete("1.0", "end")
-        content_text.insert("1.0", read_article_body(folder))
+        content_text_vi.delete("1.0", "end")
+        content_text_vi.insert("1.0", read_article_body(folder, "vi"))
+        content_text_en.delete("1.0", "end")
+        content_text_en.insert("1.0", read_article_body(folder, "en"))
         set_mode("edit")
 
     def browse_image() -> None:
@@ -506,12 +559,19 @@ def run_gui() -> None:
         except ValueError:
             image_var.set(Path(path).as_posix())
 
+    def active_content_text() -> tk.Text:
+        selected_tab = content_tabs.select()
+        if selected_tab == str(content_en_tab):
+            return content_text_en
+        return content_text_vi
+
     def insert_content_snippet(snippet: str) -> None:
+        target_text = active_content_text()
         try:
-            content_text.insert("insert", snippet)
+            target_text.insert("insert", snippet)
         except tk.TclError:
-            content_text.insert("end", snippet)
-        content_text.focus_set()
+            target_text.insert("end", snippet)
+        target_text.focus_set()
 
     def insert_image_snippet() -> None:
         path = filedialog.askopenfilename(
@@ -537,7 +597,8 @@ def run_gui() -> None:
             image=image_var.get(),
             content_type=content_type_var.get(),
             link_url=link_url_var.get(),
-            body=content_text.get("1.0", "end").strip(),
+            body=content_text_vi.get("1.0", "end").strip(),
+            body_en=content_text_en.get("1.0", "end").strip(),
             force=force,
         )
 
@@ -636,8 +697,7 @@ def run_gui() -> None:
     content_frame = ttk.Frame(form_panel, style="Panel.TFrame")
     content_frame.grid(row=8, column=1, sticky="nsew", pady=7)
     content_frame.columnconfigure(0, weight=1)
-    content_frame.rowconfigure(1, weight=1)
-    form_panel.rowconfigure(8, weight=1)
+    content_frame.rowconfigure(1, weight=1, minsize=250)
     snippet_row = ttk.Frame(content_frame, style="Panel.TFrame")
     snippet_row.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 8))
     ttk.Button(snippet_row, text="H1 chữ to", command=lambda: insert_content_snippet("# Tiêu đề lớn\n")).grid(row=0, column=0, padx=(0, 6))
@@ -646,9 +706,21 @@ def run_gui() -> None:
     ttk.Button(snippet_row, text="Nghiêng", command=lambda: insert_content_snippet("*chữ nghiêng*")).grid(row=0, column=3, padx=(0, 6))
     ttk.Button(snippet_row, text="Bullet", command=lambda: insert_content_snippet("- Ý nội dung\n")).grid(row=0, column=4, padx=(0, 6))
     ttk.Button(snippet_row, text="Chèn ảnh", command=insert_image_snippet).grid(row=0, column=5)
-    content_text = tk.Text(
-        content_frame,
-        height=11,
+    content_tabs = ttk.Notebook(content_frame)
+    content_tabs.grid(row=1, column=0, columnspan=2, sticky="nsew")
+
+    content_vi_tab = ttk.Frame(content_tabs, style="Panel.TFrame")
+    content_en_tab = ttk.Frame(content_tabs, style="Panel.TFrame")
+    content_tabs.add(content_vi_tab, text="Content VI (content.md)")
+    content_tabs.add(content_en_tab, text="Content EN (content.en.md)")
+
+    for tab_frame in (content_vi_tab, content_en_tab):
+        tab_frame.columnconfigure(0, weight=1)
+        tab_frame.rowconfigure(0, weight=1)
+
+    content_text_vi = tk.Text(
+        content_vi_tab,
+        height=18,
         wrap="word",
         bg="#2b0603",
         fg="#f6dfb9",
@@ -658,10 +730,27 @@ def run_gui() -> None:
         pady=8,
         font=("Consolas", 10),
     )
-    content_text.grid(row=1, column=0, sticky="nsew")
-    content_scrollbar = ttk.Scrollbar(content_frame, orient="vertical", command=content_text.yview)
-    content_scrollbar.grid(row=1, column=1, sticky="ns")
-    content_text.configure(yscrollcommand=content_scrollbar.set)
+    content_text_vi.grid(row=0, column=0, sticky="nsew")
+    content_vi_scrollbar = ttk.Scrollbar(content_vi_tab, orient="vertical", command=content_text_vi.yview)
+    content_vi_scrollbar.grid(row=0, column=1, sticky="ns")
+    content_text_vi.configure(yscrollcommand=content_vi_scrollbar.set)
+
+    content_text_en = tk.Text(
+        content_en_tab,
+        height=18,
+        wrap="word",
+        bg="#2b0603",
+        fg="#f6dfb9",
+        insertbackground="#f6dfb9",
+        relief="flat",
+        padx=10,
+        pady=8,
+        font=("Consolas", 10),
+    )
+    content_text_en.grid(row=0, column=0, sticky="nsew")
+    content_en_scrollbar = ttk.Scrollbar(content_en_tab, orient="vertical", command=content_text_en.yview)
+    content_en_scrollbar.grid(row=0, column=1, sticky="ns")
+    content_text_en.configure(yscrollcommand=content_en_scrollbar.set)
 
     ttk.Checkbutton(form_panel, text="Force overwrite khi tạo mới", variable=force_var).grid(
         row=9, column=1, sticky="w", pady=(4, 8)
@@ -698,6 +787,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--content-type", help="Content type: Bài Viết or Link.")
     parser.add_argument("--link-url", help="External URL used when content type is Link.")
     parser.add_argument("--body-file", help="Markdown file to write into content.md.")
+    parser.add_argument("--body-en-file", help="Markdown file to write into content.en.md.")
     parser.add_argument("--force", action="store_true", help="Overwrite an existing article folder and manifest item.")
     parser.add_argument("--dry-run", action="store_true", help="Print the new item without writing files.")
     return parser

@@ -13,6 +13,7 @@ const modalLink = document.querySelector("[data-modal-link]");
 const modalCloseButtons = Array.from(document.querySelectorAll("[data-modal-close]"));
 let currentLanguage = "en";
 let publicContentItems = [];
+let activeModalItem = null;
 
 const translations = {
   en: {
@@ -123,6 +124,10 @@ function setLanguage(lang) {
   });
 
   renderPublicContent();
+
+  if (activeModalItem && contentModal && !contentModal.hidden) {
+    updateContentModal(activeModalItem);
+  }
 }
 
 languageButtons.forEach((button) => {
@@ -261,7 +266,16 @@ async function loadArticleBody(item) {
   modalArticle.innerHTML = `<p class="content-modal__loading">${currentLanguage === "vi" ? "Đang tải nội dung..." : "Loading content..."}</p>`;
 
   try {
-    const response = await fetch(`publiccontent/${item.folder}/content.md`);
+    const localizedPath = currentLanguage === "en" ? "content.en.md" : "content.md";
+    let response = await fetch(`publiccontent/${item.folder}/${localizedPath}?v=${Date.now()}`, {
+      cache: "no-store"
+    });
+
+    if (!response.ok && localizedPath !== "content.md") {
+      response = await fetch(`publiccontent/${item.folder}/content.md?v=${Date.now()}`, {
+        cache: "no-store"
+      });
+    }
 
     if (!response.ok) {
       throw new Error(`Content failed: ${response.status}`);
@@ -275,9 +289,7 @@ async function loadArticleBody(item) {
   }
 }
 
-async function openContentModal(item) {
-  if (!contentModal) return;
-
+function updateContentModal(item) {
   const title = getPublicContentTitle(item);
   const category = getCategoryLabel(item.category);
   const date = formatContentDate(item.date);
@@ -291,6 +303,13 @@ async function openContentModal(item) {
   modalLink.href = href;
   modalLink.hidden = !isLinkContent(item) || !item.linkUrl;
   loadArticleBody(item);
+}
+
+async function openContentModal(item) {
+  if (!contentModal) return;
+
+  activeModalItem = item;
+  updateContentModal(item);
 
   contentModal.hidden = false;
   document.body.classList.add("modal-open");
@@ -302,6 +321,7 @@ function closeContentModal() {
 
   contentModal.hidden = true;
   document.body.classList.remove("modal-open");
+  activeModalItem = null;
 }
 
 function renderPublicContent() {
@@ -361,7 +381,9 @@ async function loadPublicContent() {
   if (!contentGrid) return;
 
   try {
-    const response = await fetch("publiccontent/content.json");
+    const response = await fetch(`publiccontent/content.json?v=${Date.now()}`, {
+      cache: "no-store"
+    });
 
     if (!response.ok) {
       throw new Error(`Public content manifest failed: ${response.status}`);

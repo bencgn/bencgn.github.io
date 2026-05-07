@@ -507,7 +507,7 @@ body.modal-open {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(14rem, 23rem) minmax(18rem, 34rem);
+  grid-template-columns: minmax(11rem, 17rem) minmax(22rem, 1fr);
   width: min(58rem, 100%);
   max-height: min(42rem, calc(100vh - 3rem));
   overflow: auto;
@@ -520,9 +520,12 @@ body.modal-open {
 }
 
 .content-modal__close {
-  position: absolute;
+  position: sticky;
   top: 0.8rem;
   right: 0.8rem;
+  grid-column: 2;
+  justify-self: end;
+  align-self: start;
   display: grid;
   place-items: center;
   width: 2.35rem;
@@ -535,6 +538,26 @@ body.modal-open {
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
+  z-index: 5;
+  margin: 0.8rem 0.8rem -3.15rem 0;
+}
+
+.content-modal__media {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: min(42rem, calc(100vh - 3rem));
+  min-height: 21rem;
+  overflow: hidden;
+}
+
+.content-modal__media::after {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 45%;
+  background: linear-gradient(90deg, rgba(251, 248, 239, 0), rgba(251, 248, 239, 0.82));
+  content: "";
+  pointer-events: none;
 }
 
 .content-modal__image {
@@ -542,10 +565,11 @@ body.modal-open {
   height: 100%;
   min-height: 21rem;
   object-fit: cover;
+  object-position: 34% center;
 }
 
 .content-modal__body {
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.5rem);
 }
 
 .content-modal__category {
@@ -881,6 +905,24 @@ body.modal-open {
 
   .content-modal__panel {
     grid-template-columns: 1fr;
+  }
+
+  .content-modal__close {
+    grid-column: 1;
+  }
+
+  .content-modal__media {
+    position: relative;
+    height: auto;
+    min-height: 13rem;
+    max-height: 16rem;
+  }
+
+  .content-modal__media::after {
+    inset: auto 0 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(251, 248, 239, 0), rgba(251, 248, 239, 0.86));
   }
 
   .content-modal__image {
