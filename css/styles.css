@@ -166,7 +166,7 @@ input {
   display: grid;
   grid-template-columns: 7.5rem minmax(18rem, 31rem) 1fr;
   align-items: center;
-  min-height: 18rem;
+  min-height: 22rem;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background:
