@@ -44,7 +44,7 @@ const translations = {
     "skills.3.count": "10 Articles",
     "about.label": "BenCGN",
     "about.title": "3D Artist/Technical Art.",
-    "about.copy": "Builds stylized 3D visuals, interactive assets, and technical art systems for clear, polished digital experiences.",
+    "about.copy": "Crafts 3D models, interactive assets, and technical art with an old-world sense of form, restraint, and purpose.",
     "about.cta": "Learn More",
     "footer.explore": "Explore",
     "footer.rights": "© 2026 BenCGN. All rights reserved."
@@ -59,6 +59,8 @@ const translations = {
     "hero.copy": "Khám phá bài viết, sản phẩm và tool public tại đây nhé. Mình gom các nội dung mở để bạn xem nhanh, tải dùng khi cần và theo dõi những cập nhật sáng tạo mới.",
     "hero.cta": "Xem bài viết",
     "public.title": "Nội dung công khai",
+    "public.loading": "Đang tải nội dung công khai...",
+    "public.error": "Không thể tải nội dung công khai.",
     "cards.1.label": "Cập nhật",
     "cards.1.title": "Ghi chú thiết kế cho công việc sáng tạo mở",
     "cards.2.label": "Hồ sơ",
@@ -75,7 +77,7 @@ const translations = {
     "skills.3.count": "10 bài viết",
     "about.label": "BenCGN",
     "about.title": "3D Artist/Technical Art.",
-    "about.copy": "Tạo hình ảnh 3D, asset tương tác và hệ thống technical art gọn, rõ, dùng tốt cho sản phẩm số.",
+    "about.copy": "Tạo mô hình 3D, asset tương tác và technical art theo tinh thần cổ phong: chỉn chu về hình, tiết chế trong nét, hữu dụng trong từng sản phẩm.",
     "about.cta": "Tìm hiểu thêm",
     "footer.explore": "Khám phá",
     "footer.rights": "© 2026 BenCGN. Đã đăng ký bản quyền."
@@ -122,6 +124,10 @@ function setLanguage(lang) {
   languageButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === safeLang);
   });
+
+  if (contentGrid && !publicContentItems.length) {
+    contentGrid.innerHTML = `<p class="content-state">${translations[safeLang]["public.loading"] || translations.en["public.loading"]}</p>`;
+  }
 
   renderPublicContent();
 
