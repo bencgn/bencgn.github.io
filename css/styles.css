@@ -166,7 +166,7 @@ input {
   display: grid;
   grid-template-columns: 7.5rem minmax(18rem, 31rem) 1fr;
   align-items: center;
-  min-height: 24rem;
+  min-height: 16rem;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background:
@@ -194,15 +194,15 @@ input {
 .hero::after {
   z-index: 2;
   left: 3.8rem;
-  bottom: 2rem;
-  font-size: 2.6rem;
+  bottom: 1.15rem;
+  font-size: 2.15rem;
 }
 
 .hero-content {
   position: relative;
   z-index: 3;
   grid-column: 2;
-  padding: 3rem 0;
+  padding: 2rem 0;
   max-width: 31rem;
 }
 
@@ -231,26 +231,26 @@ input {
   margin: 0;
   color: #17120f;
   font-family: "Spectral", Georgia, serif;
-  font-size: clamp(2.35rem, 3.8vw, 3.45rem);
+  font-size: clamp(2.15rem, 3.2vw, 3rem);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.04;
 }
 
 .hero h1::after {
   display: block;
-  width: 4.2rem;
+  width: 3.5rem;
   height: 3px;
-  margin: 0.9rem 0 1rem;
+  margin: 0.75rem 0 0.85rem;
   background: var(--red-bright);
   content: "";
 }
 
 .hero-copy {
-  max-width: 30rem;
-  margin: 0 0 1.35rem;
+  max-width: 31rem;
+  margin: 0;
   color: var(--cream);
-  font-size: 1.1rem;
-  line-height: 1.55;
+  font-size: 1.02rem;
+  line-height: 1.5;
 }
 
 .primary-button,
@@ -305,7 +305,7 @@ input {
   position: absolute;
   z-index: 3;
   left: 51%;
-  bottom: 1.4rem;
+  bottom: 1rem;
   display: flex;
   gap: 0.8rem;
 }
@@ -780,7 +780,7 @@ body.modal-open {
 
   .hero h1 {
     max-width: 28rem;
-    font-size: clamp(2.7rem, 4.4vw, 3.8rem);
+    font-size: clamp(2.2rem, 3.8vw, 3.25rem);
   }
 
   .hero-art {
@@ -847,7 +847,7 @@ body.modal-open {
   .hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding: 4rem 6vw 5rem;
+    padding: 2.5rem 6vw 3.5rem;
   }
 
   .hero-content {
@@ -862,7 +862,7 @@ body.modal-open {
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(2.55rem, 13vw, 4.1rem);
+    font-size: clamp(2.35rem, 11vw, 3.6rem);
   }
 
   .hero-copy {
